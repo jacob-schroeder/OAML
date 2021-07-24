@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D4C89521-B75D-4DD3-B408-CDE9FC8BA6A2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OAML</RootNamespace>
+    <AssemblyName>OAML</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Components\Configuration\Interfaces\IFriendOptions.cs" />
+    <Compile Include="Components\Configuration\Interfaces\IServerOptions.cs" />
+    <Compile Include="Components\Configuration\Options.cs" />
+    <Compile Include="Components\Core\Interfaces\IEncryptionKey.cs" />
+    <Compile Include="Components\Core\Interfaces\ISignatureKey.cs" />
+    <Compile Include="Components\IO\Message.cs" />
+    <Compile Include="Components\IO\MessageBuilder.cs" />
+    <Compile Include="Components\Core\UserNode.cs" />
+    <Compile Include="Components\Core\Interfaces\IHostAddress.cs" />
+    <Compile Include="Components\IO\MessageReader.cs" />
+    <Compile Include="Components\IO\MessageWriter.cs" />
+    <Compile Include="Components\IO\Types\MessageType.cs" />
+    <Compile Include="Components\Security\IEncryptionManager.cs" />
+    <Compile Include="Components\Security\ISignatureManager.cs" />
+    <Compile Include="Components\Security\Types\EncryptionMethod.cs" />
+    <Compile Include="Components\Security\Types\KeyPair.cs" />
+    <Compile Include="Metadata.cs" />
+    <Compile Include="Network\ChatClient.cs" />
+    <Compile Include="Network\ChatServer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Interfaces\ITaskResult.cs" />
+    <Compile Include="Services\ServiceResult.cs" />
+    <Compile Include="Services\TaskResult.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
