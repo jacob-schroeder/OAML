@@ -26,7 +26,15 @@ namespace OAML.Security.Encryption
                     return rsa.Decrypt(data, RSAEncryptionPadding.Pkcs1);
                 }
             }
-            catch
+            catch(ArgumentNullException ex) //do something
+            {
+
+            }
+            catch(CryptographicException ex) //do something
+            {
+
+            }
+            catch(Exception ex) //do something
             {
 
             }

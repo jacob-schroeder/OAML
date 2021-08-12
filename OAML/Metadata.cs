@@ -8,8 +8,8 @@ namespace OAML
 {
     public static class Metadata
     {
-        public static readonly string Magic = "OAML";
+        public const string Magic = "OAML";
 
-        public static readonly float Version = 1.0f;
+        public const float Version = 1.01f;
     }
 }

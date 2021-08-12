@@ -42,10 +42,23 @@ namespace OAML.Security.Signature
         public bool Verify(byte[] key, byte[] data, byte[] signature)
         {
             //use _Keys.PublicKey instead of key here..
-            using (ECDsaCng mngr = new ECDsaCng(CngKey.Import(key, CngKeyBlobFormat.EccPublicBlob)))
+            try
             {
-                return mngr.VerifyData(data, signature);
+                using (ECDsaCng mngr = new ECDsaCng(CngKey.Import(key, CngKeyBlobFormat.EccPublicBlob)))
+                {
+                    return mngr.VerifyData(data, signature);
+                }
             }
+            catch(PlatformNotSupportedException ex)
+            {
+
+            }
+            catch(CryptographicException ex)
+            {
+
+            }
+
+            return false;
         }
     }
 }

@@ -57,6 +57,7 @@
     <Compile Include="Components\Security\ISignatureManager.cs" />
     <Compile Include="Components\Security\Types\EncryptionMethod.cs" />
     <Compile Include="Components\Security\Types\KeyPair.cs" />
+    <Compile Include="Exceptions\Core\OAMLVersionException.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="Network\ChatClient.cs" />
     <Compile Include="Network\ChatServer.cs" />

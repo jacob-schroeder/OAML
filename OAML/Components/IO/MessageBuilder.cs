@@ -1,9 +1,11 @@
 ﻿using OAML.Components.IO.Types;
 using OAML.Components.Security;
+using OAML.Exceptions.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,15 +35,23 @@ namespace OAML.Components.IO
 
         public MessageBuilder ReadMessage()
         {
-            if(_manager != null)
+            try
             {
-                //if(_type == MessageType.Message)
-                    _data = _manager.Decrypt(_key, _data);
-            }
+                if (_manager != null)
+                {
+                    //if(_type == MessageType.Message)
+                    _data = _manager.Decrypt(_key, _data); //Exception Handling here...
+                }
 
-            if(_hashManager != null)
+                if (_hashManager != null)
+                {
+                    SignatureValid = _hashManager.Verify(_hashKey, _data, _signature); //Exception Handling here..
+                }
+
+            }
+            catch (CryptographicException ex) //do something
             {
-                SignatureValid = _hashManager.Verify(_hashKey, _data, _signature);
+
             }
 
             return this;
@@ -62,6 +72,10 @@ namespace OAML.Components.IO
             {
                 _magic = reader.ReadString(4);
                 _version = reader.ReadFloat();
+
+                if (_version > Metadata.Version)
+                    throw new OAMLVersionException("Message version greater than OAML application version.", _version);
+
                 _type = (MessageType)reader.ReadInt32();
                 _encrypted = reader.ReadBoolean();
 
