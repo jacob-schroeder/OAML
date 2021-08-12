@@ -48,7 +48,7 @@ namespace FriendChatApp
             { "ECDSA", new ECDSAManager() }
         };
 
-        List<MessageQueueItem> Queue;
+        List<MessageQueueItem> Queue;  
         UserNode CurrentFriend = null;
 
         public Form1()
@@ -414,16 +414,18 @@ namespace FriendChatApp
 
             if (CryptoManagers.ContainsKey(CurrentFriend.EncryptionMethod))
             {
-                var manager = CryptoManagers[CurrentFriend.EncryptionMethod];
-                string key = Encoding.UTF8.GetString(File.ReadAllBytes(CurrentFriend.DataKeyPath));
+                var manager = CryptoManagers[CurrentFriend.EncryptionMethod]; //Key not found exception...
+
+                string key = Encoding.UTF8.GetString(File.ReadAllBytes(CurrentFriend.DataKeyPath)); //file not found, argument null exception...
 
                 message = message.UseEncryption(manager, key);
             }
 
             if (CurrentFriend.SignatureAlgo != null && SignatureManagers.ContainsKey(CurrentFriend.SignatureAlgo))
             {
-                var hashManager = SignatureManagers[CurrentFriend.SignatureAlgo];
-                byte[] key = File.ReadAllBytes(config.SignKeyPath);
+                var hashManager = SignatureManagers[CurrentFriend.SignatureAlgo]; //Key not found exception...
+
+                byte[] key = File.ReadAllBytes(config.SignKeyPath); //file not found, argument null exception...
 
                 message = message.UseSignatureManager(hashManager, key);
             }

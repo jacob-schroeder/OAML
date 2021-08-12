@@ -69,9 +69,6 @@ namespace OAML.Network
 
             if (_client != null)
             {
-                //---create a TCPClient object at the IP and port no.---
-                NetworkStream nwStream = _client.GetStream();
-
                 string displayMessage = string.Empty;
                 switch(msg._type)
                 {
@@ -86,71 +83,42 @@ namespace OAML.Network
                         break;
                 }
 
-                byte[] bytesToSend = msg.Build();
+                
 
-                //---send the text---
-                nwStream.Write(bytesToSend, 0, bytesToSend.Length);
+                try
+                {
+                    byte[] bytesToSend = msg.Build(); //check for exceptions/errors here..
+
+                    //Get the TCP Client Stream
+                    using (NetworkStream nwStream = _client.GetStream())
+                    {
+                        nwStream.Write(bytesToSend, 0, bytesToSend.Length);
+
+                        //---read back the text--- (delivered receipts maybe?)
+                        //byte[] bytesToRead = new byte[_client.ReceiveBufferSize];
+                        //int bytesRead = nwStream.Read(bytesToRead, 0, _client.ReceiveBufferSize);
+                    }
+
+                }
+                catch(ObjectDisposedException ex)
+                {
+                    result.AddError("Exception", "TCP Client Stream has been disposed.");
+                }
+                catch(System.IO.IOException ex)
+                {
+                    result.AddError("Exception", "IO Error: " + ex.ToString());
+                }
+                catch(Exception ex)
+                {
+                    result.AddError("Exception", ex.ToString());
+                }
 
                 //this still needs to be implemented, just have to figure out how to get the raw data, and pass it back if it's been encrypted..
                 if (SendMessageEvent != null)
                     SendMessageEvent(_host, _port, displayMessage);
-
-                //---read back the text---
-                byte[] bytesToRead = new byte[_client.ReceiveBufferSize];
-                int bytesRead = nwStream.Read(bytesToRead, 0, _client.ReceiveBufferSize);
             }
 
             return result;
         }
-
-        public ServiceResult<SocketError> SendMessage(byte[] msg)
-        {
-            var result = Start();
-
-            if (_client != null)
-            {
-                //---create a TCPClient object at the IP and port no.---
-                NetworkStream nwStream = _client.GetStream();
-                byte[] bytesToSend = msg;
-
-                //---send the text---
-                nwStream.Write(bytesToSend, 0, bytesToSend.Length);
-
-                //this still needs to be implemented, just have to figure out how to get the raw data, and pass it back if it's been encrypted..
-                //if (SendMessageEvent != null)
-                    //SendMessageEvent(_host, _port, msg);
-
-                //---read back the text---
-                byte[] bytesToRead = new byte[_client.ReceiveBufferSize];
-                int bytesRead = nwStream.Read(bytesToRead, 0, _client.ReceiveBufferSize);
-            }
-
-            return result;
-        }
-
-        public ServiceResult<SocketError> SendMessage(string msg)
-        {
-            var result = Start();
-
-            if (_client != null)
-            {
-                //---create a TCPClient object at the IP and port no.---
-                NetworkStream nwStream = _client.GetStream();
-                byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes(msg);
-
-                //---send the text---
-                nwStream.Write(bytesToSend, 0, bytesToSend.Length);
-
-                if (SendMessageEvent != null)
-                    SendMessageEvent(_host, _port, msg);
-
-                //---read back the text---
-                byte[] bytesToRead = new byte[_client.ReceiveBufferSize];
-                int bytesRead = nwStream.Read(bytesToRead, 0, _client.ReceiveBufferSize);
-            }
-
-            return result;
-        }
-
     }
 }
