@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OAML")]
+[assembly: AssemblyTitle("ChatUI.WindowsForms")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OAML")]
+[assembly: AssemblyProduct("ChatUI.WindowsForms")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d4c89521-b75d-4dd3-b408-cde9fc8ba6a2")]
+[assembly: Guid("3f93720a-7a10-475c-9568-6c3f149c13d2")]
 
 // Version information for an assembly consists of the following four values:
 //

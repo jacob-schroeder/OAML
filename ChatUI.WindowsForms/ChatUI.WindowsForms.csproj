@@ -7,7 +7,7 @@
     <ProjectGuid>{3F93720A-7A10-475C-9568-6C3F149C13D2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>FriendChatApp</RootNamespace>
-    <AssemblyName>FriendChatApp</AssemblyName>
+    <AssemblyName>ChatUI.WindowsForms</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
