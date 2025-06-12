@@ -4,7 +4,7 @@ namespace OAML.Domain.Cryptography;
 
 public interface ICryptoEngine
 {
-    protected KeyUsage KeyUsage { get; }
+    public KeyUsage KeyUsage { get; }
     protected int KeySize { get; }
     public KeyPair Keys { get; set; }
     
