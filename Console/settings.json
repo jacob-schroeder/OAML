@@ -1,0 +1,35 @@
+{
+  "host": {
+    "ip": "192.168.100.1",
+    "port": 1337,
+    
+    "crypts": [
+      {
+        "name": "rsa",
+        "source": "rsa-2048.dll",
+        
+        "private": "C:/path/to/rsa/private.key"
+      }
+    ]
+  },
+  
+  "nodes": [
+    {
+      "id": 1234,
+      "name": "john",
+      
+      "ip": "192.168.1.1",
+      "port": "8080",
+      
+      "crypts": [
+        {
+          "Name": "aes",
+          "source": "aes-256.dll",
+          
+          "public": "/home/jacob/Documents/keys/aes.key",
+          "private": "C:/path/to/aes/private.key"
+        }
+      ]
+    }
+  ]
+}
