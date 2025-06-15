@@ -95,9 +95,14 @@ public class App
         //if supported, handle decryption
         var handler = new BasicEnvelopeHandler();
 
+        //TODO: Change recipient here to host since receiving...
+        
         if (!handler.CanHandle(envelope, recipient))
             throw new NotSupportedException();
         
+        //so instead of recipient here, I would actually want the host.
+        //I need to see if the HOST supports the engineId of the envelope
+        //in order to decrypt it.
         byte[] decryptedRaw = handler.Decrypt(envelope, recipient);
 
         string decrypted = System.Text.Encoding.UTF8.GetString(decryptedRaw);
