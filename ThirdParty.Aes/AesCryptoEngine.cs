@@ -1,10 +1,27 @@
+﻿using System.Reflection;
 using OAML.Domain.Cryptography.Keys;
 using System.Security.Cryptography;
+using OAML.Domain.Cryptography;
 
-namespace OAML.Domain.Cryptography;
+namespace ThirdParty.Aes;
 
 public class AesCryptoEngine : ICryptoEngine
 {
+    private uint? _engineId;
+
+    public uint EngineId
+    {
+        get
+        {
+            if (_engineId is not null)
+                return _engineId.Value;
+
+            string path = Assembly.GetExecutingAssembly().Location;
+            byte[] data = File.ReadAllBytes(path);
+            _engineId = Common.Security.Crc32.Compute(data);
+            return _engineId.Value;
+        }
+    }
     public KeyUsage KeyUsage { get; }
     public int KeySize { get; }
     

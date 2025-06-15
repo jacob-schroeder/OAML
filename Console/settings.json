@@ -24,7 +24,7 @@
       "crypts": [
         {
           "Name": "aes",
-          "source": "aes-256.dll",
+          "source": "/home/jacob/Desktop/plugins/Aes.dll",
           
           "public": "/home/jacob/Documents/keys/aes.key",
           "private": "C:/path/to/aes/private.key"

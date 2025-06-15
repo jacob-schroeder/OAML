@@ -42,9 +42,11 @@ public class TextBuilder : IEnvelopeBuilder
             //SenderSignature: signature
         );
 
-        var payload = new EnvelopePayload((uint)payloadData.Length,
-            false, //is signed
-            payloadData);
+        var payload = new EnvelopePayload(
+            (uint)payloadData.Length,
+            _cryptoEngine.EngineId,
+            payloadData
+        );
 
         return new Envelope(header, payload);
     }

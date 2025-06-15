@@ -6,27 +6,43 @@ namespace OAML.Domain.Nodes;
 
 public class Node
 {
-    public uint Id => Common.Security.Crc32.GetHash(this);
+    public uint Id => 0; //TODO: Implement crc32 of Node...
     public string Name  { get; set; } //john
     public Endpoint Endpoint { get; set; }
     public List<CryptProvider> Crypts { get; set; } = [];
 
+    //TODO: Cleanup these methods below... 
     public bool ConfiguredFor(string cryptName)
     {
         return Crypts.Any(c => c.Name == cryptName);
     }
+
+    public bool ConfiguredFor(uint engineId)
+    {
+        return Crypts.Any(c => c.EngineId == engineId);
+    }
     
-    //load from dll into ICryptoEngine: https://chatgpt.com/c/68478308-3d6c-8009-af82-6714a1db75aa
     public ICryptoEngine LoadEngine(string cryptName)
     {
-        //lets just have a simple example
         var provider = Crypts.Single(c  => c.Name == cryptName);
 
+        return LoadEngine(provider);
+    }
+
+    public ICryptoEngine LoadEngine(uint engineId)
+    {
+        var provider = Crypts.Single(c  => c.EngineId == engineId);
+
+        return LoadEngine(provider);
+    }
+
+    private ICryptoEngine LoadEngine(CryptProvider provider)
+    {
         var engine = provider.LoadDllAsEngine();
   
         KeyPair keys = engine.KeyUsage == KeyUsage.Symmetric ? 
-                                KeyPair.CreateSymmetric(provider.PublicKeyPath) : 
-                                KeyPair.CreateAsymmetric(provider.PublicKeyPath, provider.PrivateKeyPath);
+            KeyPair.CreateSymmetric(provider.PublicKeyPath) : 
+            KeyPair.CreateAsymmetric(provider.PublicKeyPath, provider.PrivateKeyPath);
         
         engine.LoadKeys(keys);
 

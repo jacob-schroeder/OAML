@@ -18,6 +18,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAML.Protocol", "OAML.Proto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{8F4A84E8-05F5-410A-8FB8-624D57E8460D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{4400FB3B-C315-4A09-A180-03AEEFC97904}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThirdParty.Aes", "ThirdParty.Aes\ThirdParty.Aes.csproj", "{E8540C57-191C-4B29-A941-77345FE7F294}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +60,10 @@ Global
 		{8F4A84E8-05F5-410A-8FB8-624D57E8460D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F4A84E8-05F5-410A-8FB8-624D57E8460D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F4A84E8-05F5-410A-8FB8-624D57E8460D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8540C57-191C-4B29-A941-77345FE7F294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8540C57-191C-4B29-A941-77345FE7F294}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8540C57-191C-4B29-A941-77345FE7F294}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8540C57-191C-4B29-A941-77345FE7F294}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,5 +74,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{068647B7-0128-420A-9E8C-10DFBEF8354E} = {4C23B6C8-DADA-49DD-AB70-476B94F88700}
 		{550B8858-174A-44A4-9FAD-56893E4F9D95} = {4C23B6C8-DADA-49DD-AB70-476B94F88700}
+		{E8540C57-191C-4B29-A941-77345FE7F294} = {4400FB3B-C315-4A09-A180-03AEEFC97904}
 	EndGlobalSection
 EndGlobal

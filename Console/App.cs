@@ -1,9 +1,12 @@
 using Console.Commands;
 using Microsoft.Extensions.Options;
+using OAML.Domain.Cryptography.Keys;
 using OAML.Domain.Nodes;
 using OAML.Domain.Protocol;
 using OAML.Infrastructure.Configuration;
-using OAML.Protocol.Building;     
+using OAML.Infrastructure.Protocol;
+using OAML.Protocol.Building;
+using OAML.Protocol.Parsing;
 
 namespace Console;
 
@@ -30,28 +33,38 @@ public class App
         CurrentNode = _nodes.First().ToNode();
 
         await Process();
-        //var node = _registry.GetNodeById("...");
     }
 
     private async Task Process()
     {
         //get input from user
-        string input = System.Console.ReadLine();
+        string input = ""; //System.Console.ReadLine();
         var cmd = CommandParser.Parse(input);
 
         //get the recipient from input
         var recipient = CurrentNode; //GetNode("john")
+        
+        //send the input to network
+        var blob = await SendMessage(recipient, "aes", "Hey claire!");
+
+        
+        //get the input from network
+        await ReceiveBlob(recipient, blob);
+    }
+
+    private async Task<byte[]> SendMessage(Node recipient, string crypt, string message)
+    {
         System.Console.WriteLine($"Setting node for {recipient.Name}({recipient.Id})");
 
         //check if crypt is supported
-        var supported = recipient.ConfiguredFor(cmd.crypt);
+        var supported = recipient.ConfiguredFor(crypt);
         if(supported == false)
             throw new NotSupportedException("Unsupported protocol");
 
         //load the crypto engine and start the message
-        var engine = recipient.LoadEngine(cmd.crypt);
+        var engine = recipient.LoadEngine(crypt);
         var builder = new TextBuilder()
-                            .SetMessage(cmd.message); //msg
+            .SetMessage(message); //msg
         
         builder.SetEngine(engine);
         
@@ -59,18 +72,36 @@ public class App
         var envelope = builder.Build(recipient);
         var bytes = envelope.ToBytes();
         
+        //temporary
+        return bytes;
+
         //here's where you would send...
         //var result = client.SendEnvelope(node, envelope); tbh more of a fan of this one...
         // or...
         //var result = client.SendEnvelope(node, bytes);
+    }
 
-    
-        //On the receiving end
-        //I actually want to use IEnvelopeParser here...
-        var env2 = Envelope.FromBytes(bytes);
-        byte[] decrypted = engine.Decrypt(env2.Payload.payload);
-        string decrypted_as_string = System.Text.Encoding.UTF8.GetString(decrypted);
+    private async Task ReceiveBlob(Node recipient, byte[] blob)
+    {
+        //parse blob as envelope
+        var parser = new BasicEnvelopeParser();
+
+        if (!parser.CanParse(blob))
+            throw new NotSupportedException("Invalid blob format");
+
+        var envelope = parser.Parse(blob);
         
+        
+        //if supported, handle decryption
+        var handler = new BasicEnvelopeHandler();
+
+        if (!handler.CanHandle(envelope, recipient))
+            throw new NotSupportedException();
+        
+        byte[] decryptedRaw = handler.Decrypt(envelope, recipient);
+
+        string decrypted = System.Text.Encoding.UTF8.GetString(decryptedRaw);
+
         int bp = 0;
     }
     

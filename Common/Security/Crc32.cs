@@ -1,18 +1,20 @@
-using K4os.Hash.xxHash;
-
 namespace Common.Security;
 
 public static class Crc32
 {
-    public static uint GetHash<T>(T obj)
+    private static readonly uint[] Table = Enumerable.Range(0, 256).Select(i =>
     {
-        var random = new Random();
-        int value = random.Next();           // Any non-negative int
-        int bounded = random.Next(0, 1000);  // 0 to 999
+        uint c = (uint)i;
+        for (int j = 0; j < 8; j++)
+            c = (c & 1) != 0 ? 0xEDB88320U ^ (c >> 1) : c >> 1;
+        return c;
+    }).ToArray();
 
-        return (uint)bounded;
-
-        //byte[] data = Serializers.Serialize.SerializeToBytes(obj);
-        //return XXH32.DigestOf(data);
+    public static uint Compute(byte[] data)
+    {
+        uint crc = 0xFFFFFFFF;
+        foreach (var b in data)
+            crc = Table[(crc ^ b) & 0xFF] ^ (crc >> 8);
+        return crc ^ 0xFFFFFFFF;
     }
 }

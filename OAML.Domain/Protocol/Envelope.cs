@@ -18,11 +18,11 @@ public record Envelope(
 
         // Serialize payload
         bw.Write(Payload.payload.Length);           // 4 bytes
-        bw.Write(Payload.isSigned);                  // 1 byte?
+        bw.Write(Payload.payloadEngineId);          // 4 bytes
         bw.Write(Payload.payload);
         
         // Serialize Signature
-        if (Payload.isSigned)
+        //if (Payload.isSigned)
         {
             //bw.Write(Header.SenderSignature.Length);    // 4 bytes
             //bw.Write(Header.SenderSignature);           // N bytes
@@ -35,6 +35,8 @@ public record Envelope(
         return ms.ToArray();
     }
 
+    [Obsolete]
+    //TODO: Remove this method, instead utilize IEnvelopeParser
     public static Envelope FromBytes(byte[] data)
     {
         using var ms = new MemoryStream(data);
@@ -46,22 +48,22 @@ public record Envelope(
         
         // Payload
         uint payloadLength = br.ReadUInt32();
-        bool  isSigned = br.ReadBoolean();
+        uint  engineId = br.ReadUInt32();
         byte[] payloadData = br.ReadBytes((int)payloadLength);
         
         // Signature
-        if (isSigned)
-        {
+        //if (isSigned)
+        //{
             //int signatureLength = br.ReadInt32();
             //byte[] signature = br.ReadBytes(signatureLength);
-        }
+        //}
 
         int checksum = br.ReadInt32();
         if (checksum != CalculateChecksum(payloadData))
             throw new InvalidDataException("Checksum mismatch");
 
         var header = new EnvelopeHeader(magic, version, messageType);
-        var payload = new EnvelopePayload(payloadLength, isSigned, payloadData);
+        var payload = new EnvelopePayload(payloadLength, engineId, payloadData);
         return new Envelope(header, payload);
     }
 
