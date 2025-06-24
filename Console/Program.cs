@@ -52,11 +52,7 @@ static class Program
                 // Bind configuration
                 services.Configure<HostConfig>(context.Configuration.GetSection("host"));
                 services.Configure<List<NodeConfig>>(config.GetSection("nodes"));
-
-                // Register application services
-                //services.AddSingleton<IEnvelopeBuilder, DefaultEnvelopeBuilder>();
-                //services.AddSingleton<INodeRegistry, ConfigNodeRegistry>();
-
+                
                 // Entry point
                 services.AddTransient<App>(); // This is your main "runner" class
             })
@@ -65,6 +61,5 @@ static class Program
         // Resolve and run your app
         var app = host.Services.GetRequiredService<App>();
         await app.RunAsync();
-        
     }
 }

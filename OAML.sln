@@ -2,10 +2,6 @@
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAML", ".\OAML\OAML.csproj", "{D4C89521-B75D-4DD3-B408-CDE9FC8BA6A2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAML.Security", ".\OAML.Security\OAML.Security.csproj", "{D1A701C3-1A89-4437-8B8B-2515DFE66217}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{4C23B6C8-DADA-49DD-AB70-476B94F88700}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{550B8858-174A-44A4-9FAD-56893E4F9D95}"
@@ -28,14 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D4C89521-B75D-4DD3-B408-CDE9FC8BA6A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4C89521-B75D-4DD3-B408-CDE9FC8BA6A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4C89521-B75D-4DD3-B408-CDE9FC8BA6A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4C89521-B75D-4DD3-B408-CDE9FC8BA6A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1A701C3-1A89-4437-8B8B-2515DFE66217}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1A701C3-1A89-4437-8B8B-2515DFE66217}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1A701C3-1A89-4437-8B8B-2515DFE66217}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1A701C3-1A89-4437-8B8B-2515DFE66217}.Release|Any CPU.Build.0 = Release|Any CPU
 		{068647B7-0128-420A-9E8C-10DFBEF8354E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{068647B7-0128-420A-9E8C-10DFBEF8354E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{068647B7-0128-420A-9E8C-10DFBEF8354E}.Release|Any CPU.ActiveCfg = Release|Any CPU
